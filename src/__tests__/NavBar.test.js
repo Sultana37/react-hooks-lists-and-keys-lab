@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import NavBar from "../components/NavBar";
+import React from "react";
 
 test("each <a> element has a unique key prop", () => {
   const errorSpy = jest.spyOn(global.console, "error");
@@ -12,6 +13,19 @@ test("each <a> element has a unique key prop", () => {
   errorSpy.mockRestore();
 });
 
+
+function NavBar() {
+  const links = ["home", "about", "projects"];
+
+  const anchors = links.map((link) => (
+    <a key={link} href={"#" + link}>
+      {link}
+    </a>
+  ));
+  return <nav>{anchors}</nav>;
+}
+
+export default NavBar;
 test("renders three <a> elements", () => {
   const { container } = render(<NavBar />);
   expect(container.querySelectorAll("a")).toHaveLength(3);

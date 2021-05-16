@@ -8,7 +8,22 @@ const project = {
   about: "A recipe tracking app",
   technologies: ["Rails", "Bootstrap CSS"],
 };
+import React from "react";
 
+function ProjectItem({ name, about, technologies }) {
+  const technologiesList = technologies.map((tech) => (
+    <span key={tech}>{tech}</span>
+  ));
+  return (
+    <div className="project-item">
+      <h3>{name}</h3>
+      <p>{about}</p>
+      <div className="technologies">{technologiesList}</div>
+    </div>
+  );
+}
+
+export default ProjectItem;
 test("each <span> element has a unique key prop", () => {
   let errorSpy = jest.spyOn(global.console, "error");
   render(

@@ -1,6 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import ProjectList from "../components/ProjectList";
+import React from "react";
+import ProjectItem from "./ProjectItem";
+
 
 const projects = [
   {
@@ -22,7 +25,24 @@ const projects = [
     technologies: ["React", "Redux", "Rails"],
   },
 ];
+function ProjectList({ projects }) {
+  const projectItems = projects.map((project) => (
+    <ProjectItem
+      key={project.id}
+      name={project.name}
+      about={project.about}
+      technologies={project.technologies}
+    />
+  ));
+  return (
+    <div id="projects">
+      <h2>My Projects</h2>
+      <div id="project-list">{projectItems}</div>
+    </div>
+  );
+}
 
+export default ProjectList;
 test("gives each <ProjectItem> a key based on the project id", () => {
   let errorSpy = jest.spyOn(global.console, "error");
   render(<ProjectList projects={projects} />);
